@@ -1,6 +1,7 @@
 import { ModeToggle } from "@/components/ui/modeToggle";
 import { useEffect } from "react";
 import Pusher from "pusher-js";
+import { trpc } from "@/lib/trpc";
 
 const Home = () => {
   useEffect(() => {
@@ -17,6 +18,10 @@ const Home = () => {
     return () => pusher.unsubscribe("test");
   }, []);
 
+  const hello = trpc.hello.useQuery({
+    text: "world",
+  });
+
   return (
     <main className="min-h-screen">
       <div className="flex justify-center items-center gap-10">
@@ -31,6 +36,7 @@ const Home = () => {
         >
           mutate
         </button>
+        {hello.data && <div>{hello.data.greeting}</div>}
       </div>
     </main>
   );
