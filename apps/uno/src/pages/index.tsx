@@ -2,42 +2,42 @@ import { ModeToggle } from "@/components/ui/modeToggle";
 import { useEffect } from "react";
 import Pusher from "pusher-js";
 import { trpc } from "@/lib/trpc";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const Home = () => {
-  useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
-      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
-    });
-
-    const channel = pusher.subscribe("test");
-
-    channel.bind("test-event", (data: any) => {
-      console.log(data);
-    });
-
-    return () => pusher.unsubscribe("test");
-  }, []);
-
-  const hello = trpc.hello.useQuery({
-    text: "world",
-  });
-
   return (
-    <main className="min-h-screen">
-      <div className="flex justify-center items-center gap-10">
-        <ModeToggle />
+    <main className="min-h-screen flex flex-col justify-center items-center gap-10">
+      <h1 className="text-2xl font-bold">Lets get ready to rumble!</h1>
+      <ModeToggle />
 
-        <button
-          onClick={async () => {
-            await fetch("/api/thing", {
-              method: "POST",
-            });
-          }}
-        >
-          mutate
-        </button>
-        {hello.data && <div>{hello.data.greeting}</div>}
-      </div>
+      <section className="grid grid-cols-1 lg:grid-cols-3">
+        <Card>
+          <CardHeader>
+            <CardTitle>Host</CardTitle>
+            <CardDescription>Host a game to play with others!</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button>Select</Button>
+          </CardContent>
+        </Card>
+        <div className="w-full h-full flex justify-center items-center text-xl font-bold py-4">
+          <p>Or</p>
+        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Player</CardTitle>
+            <CardDescription>Play a game with others!</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 items-start">
+            <Label htmlFor="code">Game Code:</Label>
+            <Input id="code" />
+            <Button>Select</Button>
+          </CardContent>
+        </Card>
+      </section>
     </main>
   );
 };
