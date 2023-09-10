@@ -1,33 +1,36 @@
-"use client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { ModeToggle } from "@/components/ui/modeToggle";
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import Pusher from "pusher-js";
 
 const Home = () => {
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+
+    const channel = pusher.subscribe("test");
+
+    channel.bind("test-event", (data: any) => {
+      console.log(data);
+    });
+
+    return () => pusher.unsubscribe("test");
+  }, []);
+
   return (
     <main className="min-h-screen">
       <div className="flex justify-center items-center gap-10">
         <ModeToggle />
-        <Card>
-          <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-            <Button>Hello This is a button</Button>
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
+
+        <button
+          onClick={async () => {
+            await fetch("/api/thing", {
+              method: "POST",
+            });
+          }}
+        >
+          mutate
+        </button>
       </div>
     </main>
   );
