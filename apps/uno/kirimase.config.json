@@ -1,0 +1,11 @@
+{
+  "driver": "mysql",
+  "hasSrc": true,
+  "provider": "planetscale",
+  "packages": [
+    "drizzle",
+    "trpc",
+    "shadcn-ui"
+  ],
+  "preferredPackageManager": "pnpm"
+}
