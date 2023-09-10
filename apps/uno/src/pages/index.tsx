@@ -1,7 +1,4 @@
 import { ModeToggle } from "@/components/ui/modeToggle";
-import { useEffect } from "react";
-import Pusher from "pusher-js";
-import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +29,8 @@ const Home = () => {
             <CardDescription>Play a game with others!</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2 items-start">
+            <Label htmlFor="name">Player Name:</Label>
+            <Input id="name" />
             <Label htmlFor="code">Game Code:</Label>
             <Input id="code" />
             <Button>Select</Button>
