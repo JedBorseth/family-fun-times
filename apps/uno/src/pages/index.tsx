@@ -13,10 +13,12 @@ const Home = () => {
     name: "",
     code: "",
   });
+
   return (
     <main className="min-h-screen flex flex-col justify-center items-center gap-10">
       <div className="flex-col gap-10 hidden lg:flex justify-center items-center">
-        <h1 className="text-2xl font-bold">Lets get ready to rumble!</h1>
+        <h1 className="text-2xl font-bold">UNO</h1>
+        <h2 className="text-xl">Let&apos;s get ready to rumble!</h2>
         <ModeToggle />
       </div>
 
@@ -47,7 +49,6 @@ const Home = () => {
               onClick={() => {
                 if (!inputState.name || !inputState.code)
                   toast({
-                    variant: "destructive",
                     title: "You are a Moron!",
                     description: "Hey Moron! You have to fill out a name and a code to play 🤦‍♂️",
                   });
