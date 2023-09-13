@@ -1,43 +1,64 @@
 import { ModeToggle } from "@/components/ui/modeToggle";
-import { useEffect } from "react";
-import Pusher from "pusher-js";
-import { trpc } from "@/lib/trpc";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const Home = () => {
-  useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
-      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
-    });
+  const { toast } = useToast();
 
-    const channel = pusher.subscribe("test");
-
-    channel.bind("test-event", (data: any) => {
-      console.log(data);
-    });
-
-    return () => pusher.unsubscribe("test");
-  }, []);
-
-  const hello = trpc.hello.useQuery({
-    text: "world",
+  const [inputState, setInputState] = useState({
+    name: "",
+    code: "",
   });
 
   return (
-    <main className="min-h-screen">
-      <div className="flex justify-center items-center gap-10">
+    <main className="min-h-screen flex flex-col justify-center items-center gap-10">
+      <div className="flex-col gap-10 hidden lg:flex justify-center items-center">
+        <h1 className="text-2xl font-bold">UNO</h1>
+        <h2 className="text-xl">Let&apos;s get ready to rumble!</h2>
         <ModeToggle />
-
-        <button
-          onClick={async () => {
-            await fetch("/api/thing", {
-              method: "POST",
-            });
-          }}
-        >
-          mutate
-        </button>
-        {hello.data && <div>{hello.data.greeting}</div>}
       </div>
+
+      <section className="grid grid-cols-1 lg:grid-cols-3">
+        <Card>
+          <CardHeader>
+            <CardTitle>Host</CardTitle>
+            <CardDescription>Host a game to play with others!</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button>Select</Button>
+          </CardContent>
+        </Card>
+        <div className="w-full h-full flex justify-center items-center text-xl font-bold py-4">
+          <p>Or</p>
+        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Player</CardTitle>
+            <CardDescription>Play a game with others!</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 items-start">
+            <Label htmlFor="name">Player Name:</Label>
+            <Input onChange={(e) => setInputState({ ...inputState, name: e.target.value })} id="name" />
+            <Label htmlFor="code">Game Code:</Label>
+            <Input onChange={(e) => setInputState({ ...inputState, code: e.target.value })} id="code" />
+            <Button
+              onClick={() => {
+                if (!inputState.name || !inputState.code)
+                  toast({
+                    title: "You are a Moron!",
+                    description: "Hey Moron! You have to fill out a name and a code to play 🤦‍♂️",
+                  });
+              }}
+            >
+              Select
+            </Button>
+          </CardContent>
+        </Card>
+      </section>
     </main>
   );
 };
