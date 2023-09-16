@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { Loader } from "lucide-react";
 
 const Home = () => {
   const { toast } = useToast();
@@ -13,6 +15,8 @@ const Home = () => {
     name: "",
     code: "",
   });
+
+  const createRoom = trpc.room.create.useMutation();
 
   return (
     <main className="min-h-screen flex flex-col justify-center items-center gap-10">
@@ -29,7 +33,16 @@ const Home = () => {
             <CardDescription>Host a game to play with others!</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button>Select</Button>
+            <Button
+              className="flex gap-2"
+              disabled={createRoom.isLoading}
+              onClick={() => {
+                createRoom.mutate();
+              }}
+            >
+              {createRoom.isLoading && <Loader className="animate-spin h-4 w-4" />}
+              Select
+            </Button>
           </CardContent>
         </Card>
         <div className="w-full h-full flex justify-center items-center text-xl font-bold py-4">

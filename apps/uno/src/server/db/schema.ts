@@ -1,10 +1,14 @@
+import { sql } from "drizzle-orm";
 import { int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export const Room = mysqlTable("rooms", {
   id: int("id").autoincrement().primaryKey().notNull(),
-  name: varchar("name", { length: 255 }),
   code: varchar("code", { length: 10 }),
-  createdAt: timestamp("createdAt"),
+  createdAt: timestamp("createdAt")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
   deletedAt: timestamp("deletedAt"),
-  updatedAt: timestamp("updatedAt"),
 });
