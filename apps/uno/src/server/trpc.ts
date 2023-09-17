@@ -8,19 +8,3 @@ const t = initTRPC.context<Context>().create();
 // Base router and procedure helpers
 export const router = t.router;
 export const procedure = t.procedure;
-
-const withDb = t.middleware(({ next, ctx }) => {
-  const context = {
-    ...ctx,
-    db: ctx.db,
-  };
-
-  return next({
-    ctx: {
-      ...ctx,
-      db: context.db,
-    },
-  });
-});
-
-export const publicProcedure = t.procedure.use(withDb);

@@ -19,7 +19,7 @@ interface CreateInnerContextOptions extends Partial<CreateNextContextOptions> {
  */
 export async function createContextInner(opts?: CreateInnerContextOptions) {
   return {
-    db,
+    db: db,
   };
 }
 /**
@@ -31,7 +31,6 @@ export async function createContext({}: CreateNextContextOptions) {
   const contextInner = await createContextInner({ db });
   return {
     ...contextInner,
-    db,
   };
 }
 export type Context = inferAsyncReturnType<typeof createContextInner>;
