@@ -70,7 +70,7 @@ const Home = () => {
                 if (
                   e.target.value.split("").every((v) => {
                     const typedVal = v.toUpperCase() as (typeof LETTERS)[number];
-                    LETTERS.includes(typedVal);
+                    return LETTERS.includes(typedVal);
                   })
                 ) {
                   setInputState({ ...inputState, code: e.target.value.toUpperCase() });
