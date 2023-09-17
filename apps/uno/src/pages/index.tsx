@@ -7,6 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Loader } from "lucide-react";
+import { LETTERS } from "@/lib/constants/letters";
 
 const Home = () => {
   const { toast } = useToast();
@@ -55,9 +56,24 @@ const Home = () => {
           </CardHeader>
           <CardContent className="flex flex-col gap-2 items-start">
             <Label htmlFor="name">Player Name:</Label>
-            <Input onChange={(e) => setInputState({ ...inputState, name: e.target.value })} id="name" />
+            <Input
+              onChange={(e) => {
+                setInputState({ ...inputState, name: e.target.value });
+              }}
+              id="name"
+              value={inputState.name}
+            />
             <Label htmlFor="code">Game Code:</Label>
-            <Input onChange={(e) => setInputState({ ...inputState, code: e.target.value })} id="code" />
+            <Input
+              maxLength={4}
+              onChange={(e) => {
+                if (e.target.value.split("").every((v) => LETTERS.includes(v.toUpperCase()))) {
+                  setInputState({ ...inputState, code: e.target.value.toUpperCase() });
+                }
+              }}
+              value={inputState.code}
+              id="code"
+            />
             <Button
               onClick={() => {
                 if (!inputState.name || !inputState.code)

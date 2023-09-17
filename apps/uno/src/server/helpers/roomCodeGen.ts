@@ -1,4 +1,4 @@
-export const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+import { LETTERS } from "@/lib/constants/letters";
 
 export const fourRandomLetters = () => {
   let randomLetters = "";
