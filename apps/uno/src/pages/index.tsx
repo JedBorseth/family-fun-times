@@ -67,12 +67,17 @@ const Home = () => {
             <Input
               maxLength={4}
               onChange={(e) => {
-                if (e.target.value.split("").every((v) => LETTERS.includes(v.toUpperCase()))) {
+                if (
+                  e.target.value.split("").every((v) => {
+                    const typedVal = v.toUpperCase() as (typeof LETTERS)[number];
+                    LETTERS.includes(typedVal);
+                  })
+                ) {
                   setInputState({ ...inputState, code: e.target.value.toUpperCase() });
                 }
               }}
               value={inputState.code}
-              id="code"
+              id="room-code"
             />
             <Button
               onClick={() => {
