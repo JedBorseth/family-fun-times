@@ -1,6 +1,6 @@
-import { CARD_TYPES } from "@/lib/constants/cardTypes";
+import { CARD_TYPES } from "./../../lib/constants/cardTypes";
 import { NUMBERS } from "./../../lib/constants/nums";
-import { COLORS } from "@/lib/constants/colors";
+import { COLORS } from "./../../lib/constants/colors";
 import { sql } from "drizzle-orm";
 import { int, mysqlEnum, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 

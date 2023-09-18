@@ -1,4 +1,3 @@
-import { ModeToggle } from "@/components/ui/modeToggle";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +23,6 @@ const Home = () => {
       <div className="flex-col gap-10 hidden lg:flex justify-center items-center">
         <h1 className="text-2xl font-bold">Uno</h1>
         <h2 className="text-xl">Let&apos;s get ready to rumble!</h2>
-        <ModeToggle />
       </div>
 
       <section className="grid grid-cols-1 lg:grid-cols-3">

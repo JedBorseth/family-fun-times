@@ -14,6 +14,7 @@ export const roomRouter = router({
       return code;
     };
     const code = await generateUniqueCode();
+
     return await ctx.db.insert(Room).values({
       code,
     });
