@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <main className="min-h-screen flex flex-col justify-center items-center gap-10">
       <div className="flex-col gap-10 hidden lg:flex justify-center items-center">
-        <h1 className="text-2xl font-bold">UNO</h1>
+        <h1 className="text-2xl font-bold">Uno</h1>
         <h2 className="text-xl">Let&apos;s get ready to rumble!</h2>
         <ModeToggle />
       </div>
