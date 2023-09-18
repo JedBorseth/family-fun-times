@@ -1,4 +1,3 @@
-import { CARD_TYPES } from "@/lib/constants/cardTypes";
 import { COLORS } from "@/lib/constants/colors";
 import { NUMBERS } from "@/lib/constants/nums";
 import { BackOfCard } from "./BackOfCard";
@@ -51,6 +50,8 @@ export const Card = (props: CardProps) => {
     ? "text-black"
     : textColorMap[props.color];
 
+  const shadowColor = noColorCondition ? "#fff" : "${shadowColor}";
+
   const heightOfWhite = props.type === "number" ? "h-5/6" : "h-2/3";
   const getText = ({ type }: { type?: "shortened" }) => {
     if (props.type === "number") {
@@ -61,8 +62,17 @@ export const Card = (props: CardProps) => {
     } else if (props.type === "skip") {
       if (type === "shortened") return "S";
       return "Skip";
+    } else if (props.type === "draw4") {
+      if (type === "shortened") return "Wild";
+      return "Draw four";
+    } else if (props.type === "wild") {
+      return "Wild";
+    } else if (props.type === "draw2") {
+      if (type === "shortened") return "D";
+      return "Draw two";
     }
   };
+
   return (
     <div className="relative">
       <div
@@ -71,39 +81,134 @@ export const Card = (props: CardProps) => {
         onDoubleClick={() => setAnimation("motion-safe:animate-flip-card")}
       >
         <p
-          className="text-white absolute text-4xl top-2 left-2 font-black"
+          className={`${
+            props.type === "wild" || props.type === "draw4"
+              ? "text-black"
+              : "text-white"
+          } absolute text-4xl top-2 left-2 font-black`}
           style={{
-            textShadow: "#000 0px 3px 0px",
+            textShadow: `3px 3px 0 ${shadowColor},
+        -1px -1px 0 ${shadowColor},  
+         1px -1px 0 ${shadowColor},
+         -1px 1px 0 ${shadowColor},
+          1px 1px 0 ${shadowColor}`,
           }}
         >
           {getText({})}
         </p>
         <p
-          className="text-white absolute text-4xl bottom-2 right-2 font-black"
+          className={`${
+            props.type === "wild" || props.type === "draw4"
+              ? "text-black"
+              : "text-white"
+          } absolute text-4xl bottom-2 right-2 font-black`}
           style={{
-            textShadow: "#000 0px 3px 0px",
+            textShadow: `3px 3px 0 ${shadowColor},
+          -1px -1px 0 ${shadowColor},  
+           1px -1px 0 ${shadowColor},
+           -1px 1px 0 ${shadowColor},
+            1px 1px 0 ${shadowColor}`,
           }}
         >
           {getText({})}
         </p>
-        {props.type === "wild" || props.type === "draw4" ? (
-          <div className={`w-full ${heightOfWhite} grid grid-cols-2`}>
-            <div className="h-full w-full bg-red-500 rounded-tl-[75px]" />
-            <div className="h-full w-full bg-blue-500" />
-            <div className="h-full w-full bg-yellow-500" />
-            <div className="h-full w-full bg-green-500 rounded-br-[75px]" />
-          </div>
-        ) : (
+        {props.type === "draw4" && (
+          <>
+            <div
+              className={`w-full ${heightOfWhite} relative grid grid-cols-2`}
+            >
+              <div className="h-full w-full bg-red-500 rounded-tl-[75px]" />
+              <div className="h-full w-full bg-blue-500" />
+              <div className="h-full w-full bg-yellow-500" />
+              <div className="h-full w-full bg-green-500 rounded-br-[75px]" />
+              <p
+                style={{
+                  textShadow: `3px 3px 0 #000,
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                  1px 1px 0 #000`,
+                }}
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-7xl font-black"
+              >
+                {getText({ type: "shortened" })}
+              </p>
+            </div>
+          </>
+        )}
+        {(props.type === "number" ||
+          props.type === "reverse" ||
+          props.type === "skip" ||
+          props.type === "draw2") && (
           <div
             className={`bg-white rounded-tl-[75px] w-full ${heightOfWhite} flex justify-center items-center rounded-br-[75px]`}
           >
             <p
-              className={`${textTwColor} text-7xl font-black`}
+              className={`text-7xl font-black ${textTwColor}`}
               style={{
-                textShadow: "#000 0px 4px 0px",
+                textShadow: `3px 3px 0 ${shadowColor},
+                -1px -1px 0 ${shadowColor},  
+                 1px -1px 0 ${shadowColor},
+                 -1px 1px 0 ${shadowColor},
+                  1px 1px 0 ${shadowColor}`,
               }}
             >
               {getText({ type: "shortened" })}
+            </p>
+          </div>
+        )}
+
+        {props.type === "wild" && (
+          <div
+            className={`bg-white rounded-tl-[75px] w-full ${heightOfWhite} flex justify-center items-center rounded-br-[75px]`}
+          >
+            <p
+              className={`text-7xl font-black text-yellow-500`}
+              style={{
+                textShadow: `3px 3px 0 #000,
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                  1px 1px 0 #000`,
+              }}
+            >
+              {getText({ type: "shortened" })![0]}
+            </p>
+            <p
+              className={`text-7xl font-black text-blue-500`}
+              style={{
+                textShadow: `3px 3px 0 #000,
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                  1px 1px 0 #000`,
+              }}
+            >
+              {getText({ type: "shortened" })![1]}
+            </p>
+            <p
+              className={`text-7xl font-black text-red-500`}
+              style={{
+                textShadow: `3px 3px 0 #000,
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                  1px 1px 0 #000`,
+              }}
+            >
+              {getText({ type: "shortened" })![2]}
+            </p>
+            <p
+              className={`text-7xl font-black text-green-500`}
+              style={{
+                textShadow: `3px 3px 0 #000,
+                -1px -1px 0 #000,  
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                  1px 1px 0 #000`,
+              }}
+            >
+              {getText({ type: "shortened" })![3]}
             </p>
           </div>
         )}
