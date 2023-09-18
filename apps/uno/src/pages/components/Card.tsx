@@ -64,7 +64,7 @@ export const Card = (props: CardProps) => {
     }
   };
   return (
-    <div className="relative group">
+    <div className="relative">
       <div
         className={`rounded-md no-highlight w-56 ${bgTwColor} flex flex-col justify-center px-4 items-center h-80 border-2 border-black transition-all backface-hidden ${animation}`}
         onAnimationEnd={() => setAnimation("")}

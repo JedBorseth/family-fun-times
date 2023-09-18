@@ -68,11 +68,9 @@ module.exports = {
         "y-spin": {
           "0%": {
             transform: "rotateY(360deg)",
-            shadow: "0 0 0 0 rgba(0, 0, 0, 0)",
           },
           "100%": {
             transform: "rotateY(0deg)",
-            shadow: "0 0 0 0 rgba(0, 0, 0, 0)",
           },
         },
         "y-spin-back": {
@@ -87,8 +85,8 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "flip-card": "y-spin 0.75s ease-out alternate",
-        "flip-card-back": "y-spin-back 0.75s ease-out alternate",
+        "flip-card": "y-spin 0.75s ease-out",
+        "flip-card-back": "y-spin-back 0.75s ease-out",
       },
     },
   },
