@@ -1,6 +1,6 @@
 export const BackOfCard = () => {
   return (
-    <div className="rounded-2xl bg-black border-2 border-black w-56 h-80 relative p-1">
+    <div className="rounded-md bg-black border-2 border-black w-56 h-80 relative p-1">
       <div className="border-2 relative border-white h-full w-full p-1">
         <div className="text-white font-bold text-7xl -rotate-12 -ml-2 -mt-6 uppercase flex flex-col h-full justify-center items-center w-full">
           <p className="ml-4 -mb-1">Uno</p>

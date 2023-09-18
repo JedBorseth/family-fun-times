@@ -45,7 +45,7 @@ export const Card = (props: CardProps) => {
   const bgTwColor = noColorCondition ? "bg-black" : bgColorMap[props.color];
   const textTwColor = noColorCondition ? "text-black" : textColorMap[props.color];
 
-  const shadowColor = noColorCondition ? "#fff" : "#000";
+  const shadowColor = noColorCondition ? "#fff" : "${shadowColor}";
 
   const heightOfWhite = props.type === "number" ? "h-5/6" : "h-2/3";
   const getText = ({ type }: { type?: "shortened" }) => {
@@ -69,7 +69,7 @@ export const Card = (props: CardProps) => {
   };
 
   return (
-    <div className={`rounded-2xl relative w-56 ${bgTwColor} flex flex-col justify-center px-4 items-center h-80 border-2 border-black`}>
+    <div className={`rounded-md relative w-56 ${bgTwColor} flex flex-col justify-center px-4 items-center h-80 border-2 border-black`}>
       <p
         className={`${props.type === "wild" || props.type === "draw4" ? "text-black" : "text-white"} absolute text-4xl top-2 left-2 font-black`}
         style={{
