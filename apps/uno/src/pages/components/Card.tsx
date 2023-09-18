@@ -2,6 +2,7 @@ import { CARD_TYPES } from "@/lib/constants/cardTypes";
 import { COLORS } from "@/lib/constants/colors";
 import { NUMBERS } from "@/lib/constants/nums";
 import { BackOfCard } from "./BackOfCard";
+import { useState } from "react";
 
 const bgColorMap = {
   red: "bg-red-500",
@@ -43,6 +44,7 @@ type CardProps =
     };
 
 export const Card = (props: CardProps) => {
+  const [animation, setAnimation] = useState("motion-safe:animate-flip-card");
   const noColorCondition = props.type === "wild" || props.type === "draw4";
   const bgTwColor = noColorCondition ? "bg-black" : bgColorMap[props.color];
   const textTwColor = noColorCondition
@@ -64,7 +66,9 @@ export const Card = (props: CardProps) => {
   return (
     <div className="relative group">
       <div
-        className={`rounded-md no-highlight w-56 ${bgTwColor} flex flex-col justify-center px-4 items-center h-80 border-2 border-black transition-all motion-safe:animate-flip-card backface-hidden`}
+        className={`rounded-md no-highlight w-56 ${bgTwColor} flex flex-col justify-center px-4 items-center h-80 border-2 border-black transition-all backface-hidden ${animation}`}
+        onAnimationEnd={() => setAnimation("")}
+        onDoubleClick={() => setAnimation("motion-safe:animate-flip-card")}
       >
         <p
           className="text-white absolute text-4xl top-2 left-2 font-black"
@@ -104,7 +108,7 @@ export const Card = (props: CardProps) => {
           </div>
         )}
       </div>
-      <BackOfCard />
+      <BackOfCard animation={animation} />
     </div>
   );
 };
