@@ -1,4 +1,3 @@
-import { BackOfCard } from "./components/BackOfCard";
 import { Card } from "./components/Card";
 
 const Play = () => {
@@ -9,13 +8,10 @@ const Play = () => {
       <Card color="yellow" num="3" type="number" />
       <Card color="green" num="4" type="number" />
       <Card color="green" type="reverse" />
-
       <Card type="wild" />
       <Card color="blue" type="skip" />
       <Card color="red" type="draw2" />
       <Card type="draw4" />
-
-      <BackOfCard />
     </div>
   );
 };

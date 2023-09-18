@@ -44,3 +44,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Card Animation Stuff */
+.no-highlight {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+.backface-hidden {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

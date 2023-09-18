@@ -2,11 +2,11 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -65,12 +65,30 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "y-spin": {
+          "0%": {
+            transform: "rotateY(360deg)",
+          },
+          "100%": {
+            transform: "rotateY(0deg)",
+          },
+        },
+        "y-spin-back": {
+          "0%": {
+            transform: "rotateY(180deg)",
+          },
+          "100%": {
+            transform: "rotateY(-180deg)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "flip-card": "y-spin 0.75s ease-out",
+        "flip-card-back": "y-spin-back 0.75s ease-out",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
