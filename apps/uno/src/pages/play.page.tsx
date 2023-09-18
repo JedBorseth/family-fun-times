@@ -8,6 +8,9 @@ const Play = () => {
       <Card color="blue" num="2" type="number" />
       <Card color="yellow" num="3" type="number" />
       <Card color="green" num="4" type="number" />
+      <Card color="green" type="reverse" />
+
+      <Card type="wild" />
 
       <BackOfCard />
     </div>
