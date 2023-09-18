@@ -11,6 +11,9 @@ const Play = () => {
       <Card color="green" type="reverse" />
 
       <Card type="wild" />
+      <Card color="blue" type="skip" />
+      <Card color="red" type="draw2" />
+      <Card type="draw4" />
 
       <BackOfCard />
     </div>
