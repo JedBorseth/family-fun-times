@@ -50,7 +50,7 @@ export const Card = (props: CardProps) => {
     ? "text-black"
     : textColorMap[props.color];
 
-  const shadowColor = noColorCondition ? "#fff" : "${shadowColor}";
+  const shadowColor = noColorCondition ? "#fff" : "#000";
 
   const heightOfWhite = props.type === "number" ? "h-5/6" : "h-2/3";
   const getText = ({ type }: { type?: "shortened" }) => {
