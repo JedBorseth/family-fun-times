@@ -7,16 +7,25 @@ import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Loader } from "lucide-react";
 import { LETTERS } from "@/lib/constants/letters";
+import { useRouter } from "next/router";
 
 const Home = () => {
   const { toast } = useToast();
-
+  const router = useRouter();
   const [inputState, setInputState] = useState({
     name: "",
     code: "",
   });
 
-  const createRoom = trpc.room.create.useMutation();
+  const createRoom = trpc.room.create.useMutation({
+    onSuccess: (code) => {
+      toast({
+        title: "Room Created!",
+        description: `Your room code is ${code}`,
+      });
+      router.push(`/waiting-room/${code}`);
+    },
+  });
 
   return (
     <main className="min-h-screen flex flex-col justify-center items-center gap-10">
@@ -44,7 +53,7 @@ const Home = () => {
             </Button>
           </CardContent>
         </Card>
-        <div className="w-full h-full flex justify-center items-center text-xl font-bold py-4">
+        <div className="w-full h-full flex justify-center items-center text-xl font-normal py-4">
           <p>Or</p>
         </div>
         <Card>

@@ -46,9 +46,7 @@ export const Card = (props: CardProps) => {
   const [animation, setAnimation] = useState("motion-safe:animate-flip-card");
   const noColorCondition = props.type === "wild" || props.type === "draw4";
   const bgTwColor = noColorCondition ? "bg-black" : bgColorMap[props.color];
-  const textTwColor = noColorCondition
-    ? "text-black"
-    : textColorMap[props.color];
+  const textTwColor = noColorCondition ? "text-black" : textColorMap[props.color];
 
   const shadowColor = noColorCondition ? "#fff" : "${shadowColor}";
 
@@ -74,18 +72,14 @@ export const Card = (props: CardProps) => {
   };
 
   return (
-    <div className="relative">
+    <button className="relative hover:scale-[1.03] transition-all">
       <div
         className={`rounded-md no-highlight w-56 ${bgTwColor} flex flex-col justify-center px-4 items-center h-80 border-2 border-black transition-all backface-hidden ${animation}`}
         onAnimationEnd={() => setAnimation("")}
-        onDoubleClick={() => setAnimation("motion-safe:animate-flip-card")}
+        onClick={() => setAnimation("motion-safe:animate-flip-card")}
       >
         <p
-          className={`${
-            props.type === "wild" || props.type === "draw4"
-              ? "text-black"
-              : "text-white"
-          } absolute text-4xl top-2 left-2 font-black`}
+          className={`${props.type === "wild" || props.type === "draw4" ? "text-black" : "text-white"} absolute text-4xl top-2 left-2 font-black`}
           style={{
             textShadow: `3px 3px 0 ${shadowColor},
         -1px -1px 0 ${shadowColor},  
@@ -97,11 +91,7 @@ export const Card = (props: CardProps) => {
           {getText({})}
         </p>
         <p
-          className={`${
-            props.type === "wild" || props.type === "draw4"
-              ? "text-black"
-              : "text-white"
-          } absolute text-4xl bottom-2 right-2 font-black`}
+          className={`${props.type === "wild" || props.type === "draw4" ? "text-black" : "text-white"} absolute text-4xl bottom-2 right-2 font-black`}
           style={{
             textShadow: `3px 3px 0 ${shadowColor},
           -1px -1px 0 ${shadowColor},  
@@ -114,9 +104,7 @@ export const Card = (props: CardProps) => {
         </p>
         {props.type === "draw4" && (
           <>
-            <div
-              className={`w-full ${heightOfWhite} relative grid grid-cols-2`}
-            >
+            <div className={`w-full ${heightOfWhite} relative grid grid-cols-2`}>
               <div className="h-full w-full bg-red-500 rounded-tl-[75px]" />
               <div className="h-full w-full bg-blue-500" />
               <div className="h-full w-full bg-yellow-500" />
@@ -136,13 +124,8 @@ export const Card = (props: CardProps) => {
             </div>
           </>
         )}
-        {(props.type === "number" ||
-          props.type === "reverse" ||
-          props.type === "skip" ||
-          props.type === "draw2") && (
-          <div
-            className={`bg-white rounded-tl-[75px] w-full ${heightOfWhite} flex justify-center items-center rounded-br-[75px]`}
-          >
+        {(props.type === "number" || props.type === "reverse" || props.type === "skip" || props.type === "draw2") && (
+          <div className={`bg-white rounded-tl-[75px] w-full ${heightOfWhite} flex justify-center items-center rounded-br-[75px]`}>
             <p
               className={`text-7xl font-black ${textTwColor}`}
               style={{
@@ -159,9 +142,7 @@ export const Card = (props: CardProps) => {
         )}
 
         {props.type === "wild" && (
-          <div
-            className={`bg-white rounded-tl-[75px] w-full ${heightOfWhite} flex justify-center items-center rounded-br-[75px]`}
-          >
+          <div className={`bg-white rounded-tl-[75px] w-full ${heightOfWhite} flex justify-center items-center rounded-br-[75px]`}>
             <p
               className={`text-7xl font-black text-yellow-500`}
               style={{
@@ -214,6 +195,6 @@ export const Card = (props: CardProps) => {
         )}
       </div>
       <BackOfCard animation={animation} />
-    </div>
+    </button>
   );
 };
