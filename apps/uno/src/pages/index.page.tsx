@@ -16,6 +16,11 @@ const Home = () => {
     name: "",
     code: "",
   });
+  //TODO: seperate all routes into /host/{whatever}
+  //TODO: seperate all routes into /player/{whatever}
+
+  //ORRRRR
+  //just dynamically render the page based on some sort of clientType/playerType
 
   const createRoom = trpc.room.create.useMutation({
     onSuccess: (code) => {

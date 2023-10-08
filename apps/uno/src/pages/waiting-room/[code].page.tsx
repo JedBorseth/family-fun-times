@@ -1,9 +1,26 @@
 import { useRouter } from "next/router";
 import { PlayerCard } from "../components/PlayerCard";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import Pusher from "pusher-js";
 
-const Play = () => {
+const WaitingRoom = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+
+    const channel = pusher.subscribe("test");
+
+    channel.bind("test-event", (data: any) => {
+      console.log(data);
+    });
+
+    return () => pusher.unsubscribe("test");
+  }, []);
+
   return (
     <div className="min-h-screen w-screen justify-center items-center text-4xl font-bold flex flex-col gap-10">
       <div className="text-center flex flex-col gap-2">
@@ -17,7 +34,7 @@ const Play = () => {
         <PlayerCard name="Miah" />
         <PlayerCard name="Mike" />
         <PlayerCard name="Dearest" />
-        <PlayerCard name="Speerings" />
+        <PlayerCard name="Benny" />
       </div>
       {/* TODO make this redirect us over to the play page */}
       <Button>Everyone In?</Button>
@@ -25,4 +42,4 @@ const Play = () => {
   );
 };
 
-export default Play;
+export default WaitingRoom;
