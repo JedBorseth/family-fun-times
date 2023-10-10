@@ -49,6 +49,6 @@ export const roomRouter = router({
         sender: input.name,
       });
 
-      return `Joined room ${input.code} as ${input.name}`;
+      return input.code;
     }),
 });

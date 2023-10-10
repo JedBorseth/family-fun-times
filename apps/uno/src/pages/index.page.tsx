@@ -1,13 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
-import { Loader } from "lucide-react";
 import { LETTERS } from "@/lib/constants/letters";
 import { useRouter } from "next/router";
+import { LoadingButton } from "./components/LoadingButton";
 
 const Home = () => {
   const { toast } = useToast();
@@ -16,11 +15,19 @@ const Home = () => {
     name: "",
     code: "",
   });
-  //TODO: seperate all routes into /host/{whatever}
-  //TODO: seperate all routes into /player/{whatever}
 
-  //ORRRRR
-  //just dynamically render the page based on some sort of clientType/playerType
+  const joinRoom = trpc.room.join.useMutation({
+    onSuccess: (code) => {
+      router.push(`/player/waiting-room/${code}`);
+    },
+    onError: (err) => {
+      toast({
+        title: "Error",
+        variant: "destructive",
+        description: err.message,
+      });
+    },
+  });
 
   const createRoom = trpc.room.create.useMutation({
     onSuccess: (code) => {
@@ -28,7 +35,7 @@ const Home = () => {
         title: "Room Created!",
         description: `Your room code is ${code}`,
       });
-      router.push(`/waiting-room/${code}`);
+      router.push(`/host/waiting-room/${code}`);
     },
   });
 
@@ -46,16 +53,15 @@ const Home = () => {
             <CardDescription>Host a game to play with others!</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button
+            <LoadingButton
               className="flex gap-2"
-              disabled={createRoom.isLoading}
+              isLoading={createRoom.isLoading}
               onClick={() => {
                 createRoom.mutate();
               }}
             >
-              {createRoom.isLoading && <Loader className="animate-spin h-4 w-4" />}
               Select
-            </Button>
+            </LoadingButton>
           </CardContent>
         </Card>
         <div className="w-full h-full flex justify-center items-center text-xl font-normal py-4">
@@ -91,17 +97,21 @@ const Home = () => {
               value={inputState.code}
               id="room-code"
             />
-            <Button
+            <LoadingButton
+              isLoading={joinRoom.isLoading}
               onClick={() => {
                 if (!inputState.name || !inputState.code)
-                  toast({
+                  return toast({
                     title: "You are a Moron!",
+                    variant: "destructive",
                     description: "Hey Moron! You have to fill out a name and a code to play 🤦‍♂️",
                   });
+
+                joinRoom.mutate({ name: inputState.name, code: inputState.code });
               }}
             >
               Select
-            </Button>
+            </LoadingButton>
           </CardContent>
         </Card>
       </section>

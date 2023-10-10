@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { Card } from "../components/Card";
-import { RoomCode } from "../components/RoomCode";
+import { Card } from "../../components/Card";
+import { RoomCode } from "../../components/RoomCode";
 
 const Play = () => {
   const router = useRouter();
